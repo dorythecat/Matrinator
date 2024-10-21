@@ -42,6 +42,11 @@ plt.ylabel("Compute time (s)")
 
 plt.show()
 ```
+The tests have been run on the "Release" build of the program, available to download from GitHub, and have been tested
+on a fairly common test rig, that should mimic an average computer/laptop setup. The graphs are at different scales
+because I gave the program (mostly) the same runtime, except for the various Gauss' method graphs, where I was intrigued
+by the sudden change in growth that happens precisely at 512x512 matrices. If anyone finds why this happens, please let
+me know, and, kudos to you in advance.
 
 The graphs are as follows:
 ### Gauss
@@ -54,3 +59,5 @@ The graphs are as follows:
 
 ### Adjugate (Recursive minor determinant)
 ![Adjugate (Recursive minor determinant) from 1 to 12.png](test%20results%2FAdjugate%20%28Adjugate%29%201-12.png)
+
+(This one was implemented separately, and we can't run much higher, since it is O(n!), and, if you know, you know)
