@@ -1,0 +1,5 @@
+ToolSet: 11.0 w64 (local)@C:\Users\pemeg\mingw64
+Ninja: 1.11.1@D:\Users\pemeg\AppData\Local\JetBrains\Toolbox\CLion\bin\ninja\win\x64\ninja.exe
+Options: 
+
+Options:-DCMAKE_MAKE_PROGRAM=D:/Users/pemeg/AppData/Local/JetBrains/Toolbox/CLion/bin/ninja/win/x64/ninja.exe
