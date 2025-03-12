@@ -25,7 +25,7 @@ import subprocess
 
 import matplotlib.pyplot as plt
 
-r = range(25000, 26001, 1)
+r = range(<lowr bound>, <higher bound>, 1)
 dt = []
 for i in r:
     start_time = time.time()
