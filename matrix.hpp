@@ -7,16 +7,18 @@
 template<typename T>
 class Matrix {
 public:
-  uint_fast32_t size;
+  typedef uint_fast32_t mat_size_t;
 
-  explicit Matrix(uint_fast32_t size, bool zero = false) : size(size) {
+  mat_size_t size;
+
+  explicit Matrix(mat_size_t size, bool zero = false) : size(size) {
     m.reserve(size * size);
     if (zero) {
       std::fill(m.begin(), m.end(), 0);
       return;
     }
-    for (uint_fast32_t x = 0; x < size; x++) {
-      for (uint_fast32_t y = 0; y < size; y++) {
+    for (mat_size_t x = 0; x < size; x++) {
+      for (mat_size_t y = 0; y < size; y++) {
         m.push_back(x == y ? 1 : 0);
       }
     }
@@ -26,8 +28,8 @@ public:
   // Helper function to print the matrix to the console
   void print() {
     T out = 0;
-    for (uint_fast32_t x = 0; x < size; x++) {
-      for (uint_fast32_t y = 0; y < size; y++) {
+    for (mat_size_t x = 0; x < size; x++) {
+      for (mat_size_t y = 0; y < size; y++) {
         out = m[y + x * size];
         std::cout << (std::abs(out) == 0 ? 0 : out) << ' '; // Clean our output so we don't get -0
       } std::cout << std::endl;
@@ -36,7 +38,7 @@ public:
 
   // Helper functions to set values on the matrix (DO NOT USE INTERNALLY)
   void setMatrix(std::vector<T> matrix) { m = matrix; }
-  void setElement(uint_fast32_t x, uint_fast32_t y, T value) { m[x + y * size] = value; }
+  void setElement(mat_size_t x, mat_size_t y, T value) { m[x + y * size] = value; }
 
   // Comparison operators
   bool operator==(const Matrix<T> a) {
@@ -53,7 +55,7 @@ public:
     if (a == 1) return *this;
 
     std::vector<T> matrix(m.size());
-    for (uint_fast32_t i = 0; i < m.size(); i++) matrix.push_back(m[i] * a);
+    for (mat_size_t i = 0; i < m.size(); i++) matrix.push_back(m[i] * a);
 
     Matrix<T> mat(size);
     mat.m = matrix;
@@ -63,7 +65,7 @@ public:
     if (a == 1) return *this;
 
     std::vector<T> matrix(m.size());
-    for (uint_fast32_t i = 0; i < m.size(); i++) matrix.push_back(m[i] / a);
+    for (mat_size_t i = 0; i < m.size(); i++) matrix.push_back(m[i] / a);
 
     Matrix<T> mat(size);
     mat.m = matrix;
@@ -71,12 +73,12 @@ public:
   }
   Matrix<T> operator*=(const T a) {
     if (a == 1) return *this;
-    for (uint_fast32_t i = 0; i < m.size(); i++) m[i] *= a;
+    for (mat_size_t i = 0; i < m.size(); i++) m[i] *= a;
     return *this;
   }
   Matrix<T> operator/=(const T a) {
     if (a == 1) return *this;
-    for (uint_fast32_t i = 0; i < m.size(); i++) m[i] /= a;
+    for (mat_size_t i = 0; i < m.size(); i++) m[i] /= a;
     return *this;
   }
 
@@ -86,7 +88,7 @@ public:
 
     Matrix<T> result(size, true);
     result.m.clear();
-    for (uint_fast32_t i = 0; i < m.size(); i++) result.m.push_back(m[i] + a.m[i]);
+    for (mat_size_t i = 0; i < m.size(); i++) result.m.push_back(m[i] + a.m[i]);
     return result;
   }
   Matrix<T> operator-(const Matrix<T> a) {
@@ -94,7 +96,7 @@ public:
 
     Matrix<T> result(size, true);
     result.m.clear();
-    for (uint_fast32_t i = 0; i < m.size(); i++) result.m.push_back(m[i] - a.m[i]);
+    for (mat_size_t i = 0; i < m.size(); i++) result.m.push_back(m[i] - a.m[i]);
     return result;
   }
   Matrix<T> operator*(const Matrix<T> a) {
@@ -102,10 +104,10 @@ public:
 
     Matrix<T> result(size, true);
     result.m.clear();
-    for (uint_fast32_t x = 0; x < size; x++) {
-      for (uint_fast32_t y = 0; y < size; y++) {
+    for (mat_size_t x = 0; x < size; x++) {
+      for (mat_size_t y = 0; y < size; y++) {
         T sum = 0;
-        for (uint_fast32_t i = 0; i < size; i++) sum += m[y + i * size] * a.m[i + x * size];
+        for (mat_size_t i = 0; i < size; i++) sum += m[y + i * size] * a.m[i + x * size];
         result.m.push_back(sum);
       }
     } return result;
@@ -115,7 +117,7 @@ public:
 
     Matrix<T> result(size, true);
     result.m.clear();
-    for (uint_fast32_t i = 0; i < m.size(); i++) result.m.push_back(m[i] + a.m[i]);
+    for (mat_size_t i = 0; i < m.size(); i++) result.m.push_back(m[i] + a.m[i]);
     *this = result;
     return result;
   }
@@ -124,7 +126,7 @@ public:
 
     Matrix<T> result(size, true);
     result.m.clear();
-    for (uint_fast32_t i = 0; i < m.size(); i++) result.m.push_back(m[i] - a.m[i]);
+    for (mat_size_t i = 0; i < m.size(); i++) result.m.push_back(m[i] - a.m[i]);
 
     *this = result;
     return result;
@@ -134,10 +136,10 @@ public:
 
     Matrix<T> result(size, true);
     result.m.clear();
-    for (uint_fast32_t x = 0; x < size; x++) {
-      for (uint_fast32_t y = 0; y < size; y++) {
+    for (mat_size_t x = 0; x < size; x++) {
+      for (mat_size_t y = 0; y < size; y++) {
         T sum = 0;
-          for (uint_fast32_t i = 0; i < size; i++) sum += m[y + i * size] * a.m[i + x * size];
+          for (mat_size_t i = 0; i < size; i++) sum += m[y + i * size] * a.m[i + x * size];
         result.m.push_back(sum);
       }
     }
@@ -148,8 +150,8 @@ public:
 
   // Single-matrix operators (TRANSPOSE ALTERS THE MATRIX IT IS USED UPON)
   Matrix<T> transpose() {
-    for (uint_fast32_t x = 0; x < size; x++) {
-      for (uint_fast32_t y = 0; y < x; y++) {
+    for (mat_size_t x = 0; x < size; x++) {
+      for (mat_size_t y = 0; y < x; y++) {
         if (x == y) continue;
         T temp = m[y + x * size];
         m[y + x * size] = m[x + y * size];
@@ -157,13 +159,13 @@ public:
       }
     } return *this;
   }
-  Matrix<T> minor(uint_fast32_t x, uint_fast32_t y) {
+  Matrix<T> minor(mat_size_t x, mat_size_t y) {
     Matrix<T> mat(size - 1, true);
     mat.m.clear();
-    for (uint_fast32_t y1 = 0; y1 < size; y1++) {
+    for (mat_size_t y1 = 0; y1 < size; y1++) {
       if (y1 == y) continue;
-      uint_fast32_t y2 = y1 * size;
-      for (uint_fast32_t x1 = 0; x1 < size; x1++) {
+      mat_size_t y2 = y1 * size;
+      for (mat_size_t x1 = 0; x1 < size; x1++) {
         if (x1 == x) continue;
         mat.m.push_back(m[x1 + y2]);
       }
@@ -171,37 +173,37 @@ public:
   }
 
   // Linear transformations (THEY ALTER THE MATRIX)
-  Matrix<T> switchRows(uint_fast32_t r1, uint_fast32_t r2) {
+  Matrix<T> switchRows(mat_size_t r1, mat_size_t r2) {
     r1 *= size;
     r2 *= size;
-    for (uint_fast32_t i = 0; i < size; i++) {
+    for (mat_size_t i = 0; i < size; i++) {
       T temp = m[i + r1];
       m[i + r1] = m[i + r2];
       m[i + r2] = temp;
     } return *this;
   }
-  Matrix<T> multiplyRow(uint_fast32_t row, T mul) {
+  Matrix<T> multiplyRow(mat_size_t row, T mul) {
     row *= size;
-    for (uint_fast32_t i = 0; i < size; i++) m[i + row] *= mul;
+    for (mat_size_t i = 0; i < size; i++) m[i + row] *= mul;
     return *this;
   }
-  Matrix<T> linearAddRows(uint_fast32_t r1, uint_fast32_t r2, T mul = 1) {
+  Matrix<T> linearAddRows(mat_size_t r1, mat_size_t r2, T mul = 1) {
     r1 *= size;
     r2 *= size;
-    for (uint_fast32_t i = 0; i < size; i++) m[i + r1] += m[i + r2] * mul;
+    for (mat_size_t i = 0; i < size; i++) m[i + r1] += m[i + r2] * mul;
     return *this;
   }
   Matrix<T> rowEchelon() {
-    for (uint_fast32_t j = 0; j < size - 1; j++) {
+    for (mat_size_t j = 0; j < size - 1; j++) {
       T jj = m[j + j * size];
       if (jj == 0) {
-        for (uint_fast32_t i = j + 1; i < size; i++) {
+        for (mat_size_t i = j + 1; i < size; i++) {
           if (m[j + i * size] == 0) continue;
           switchRows(j, i);
           break;
         } if (jj == 0) return Matrix<T>(size, true);
       } jj = 1 / jj;
-      for (uint_fast32_t i = j + 1; i < size; i++) {
+      for (mat_size_t i = j + 1; i < size; i++) {
         if (m[j + i * size] == 0) continue;
         linearAddRows(i, j, - m[j + i * size] * jj);
       }
@@ -209,9 +211,9 @@ public:
   }
   Matrix<T> diagonal() {
     rowEchelon(); // Convert to row echelon, to start (this also checks if it's inversible)
-    for (uint_fast32_t j = size - 1; j > 0; j--) {
+    for (mat_size_t j = size - 1; j > 0; j--) {
       T jj = m[j + j * size];
-      for (uint_fast32_t i = j; i > 0; i--) {
+      for (mat_size_t i = j; i > 0; i--) {
         if (m[j + (i - 1) * size] == 0) continue;
         linearAddRows(i - 1, j, - m[j + (i - 1) * size] / jj);
       }
@@ -221,17 +223,17 @@ public:
   // Alters this matrix to be row echelon or diagonal, and returns a matrix,
   // to which the same transformations have been applied
   Matrix<T> rowEchelonIdentity(Matrix<T>* identity) {
-    for (uint_fast32_t j = 0; j < size - 1; j++) {
+    for (mat_size_t j = 0; j < size - 1; j++) {
       T jj = m[j + j * size];
       if (jj == 0) {
-        for (uint_fast32_t i = j + 1; i < size; i++) {
+        for (mat_size_t i = j + 1; i < size; i++) {
           if (m[j + i * size] == 0) continue;
           switchRows(j, i);
           identity->switchRows(j, i);
           break;
         } if (jj == 0) return Matrix<T>(size, true);
       } jj = 1 / jj;
-      for (uint_fast32_t i = j + 1; i < size; i++) {
+      for (mat_size_t i = j + 1; i < size; i++) {
         if (m[j + i * size] == 0) continue;
         T mul = -m[j + i * size] * jj;
         linearAddRows(i, j, mul);
@@ -241,9 +243,9 @@ public:
   }
   Matrix<T> diagonalIdentity(Matrix<T>* identity) {
     rowEchelonIdentity(identity); // Convert to row echelon, to start (this also checks if it's inversible)
-    for (uint_fast32_t j = size - 1; j > 0; j--) {
+    for (mat_size_t j = size - 1; j > 0; j--) {
       T jj = 1 / m[j + j * size];
-      for (uint_fast32_t i = j; i > 0; i--) {
+      for (mat_size_t i = j; i > 0; i--) {
         if (m[j + (i - 1) * size] == 0) continue;
         T mul = -m[j + (i - 1) * size] * jj;
         linearAddRows(i - 1, j, mul);
@@ -258,7 +260,7 @@ public:
     aux.rowEchelon(); // We don't want to modify this matrix
 
     T mul = 1;
-    for (uint_fast32_t i = 0; i < size; i++) mul *= aux.m[i + i * size];
+    for (mat_size_t i = 0; i < size; i++) mul *= aux.m[i + i * size];
     return mul;
   }
 
@@ -266,8 +268,8 @@ public:
   Matrix<T> adjugate() {
     Matrix<T> adj(size, true);
     adj.m.clear();
-    for (uint_fast32_t x = 0; x < size; x++) {
-      for (uint_fast32_t y = 0; y < size; y++) {
+    for (mat_size_t x = 0; x < size; x++) {
+      for (mat_size_t y = 0; y < size; y++) {
         adj.m.push_back(minor(x, y).determinant() * ((x + y) % 2 == 0 ? 1 : -1));
       }
     } return adj;
@@ -279,7 +281,7 @@ public:
   Matrix<T> gaussInverse() {
     Matrix<T> inverse(size);
     diagonalIdentity(&inverse);
-    for (uint_fast32_t i = 0; i < size; i++) inverse.multiplyRow(i, 1 / m[i + i * size]);
+    for (mat_size_t i = 0; i < size; i++) inverse.multiplyRow(i, 1 / m[i + i * size]);
     return inverse;
   }
 

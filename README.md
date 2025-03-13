@@ -64,5 +64,6 @@ The graphs are as follows:
 (This one was implemented separately, and we can't run much higher, since it is O(n!), and, if you know, you know)
 
 # UPDATES
+v1.0.2: Added mat_size_t to be able to change the type we sore matrix size and related as
 v1.0.1: Added 2 and 3 as options for the method, which don't print the output, and refactored all of the code
 v1.0.0: Initial release
