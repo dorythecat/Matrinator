@@ -33,11 +33,13 @@ int main(int argc, char* argv[]) {
 
   Matrix<float> a(order);
   if (!m.empty()) a.setMatrix(m);
-  std::cout << "---" << std::endl;
-  a.print();
-  std::cout << "---" << std::endl;
-  std::cout << a.determinant() << std::endl;
-  std::cout << "---" << std::endl;
+  if (method <= 1) {
+    std::cout << "---" << std::endl;
+    a.print();
+    std::cout << "---" << std::endl;
+    std::cout << a.determinant() << std::endl;
+    std::cout << "---" << std::endl;
+  }
   switch (method) {
     case 0:
       a.gaussInverse().print();
@@ -53,6 +55,7 @@ int main(int argc, char* argv[]) {
       break;
     default:
       throw std::exception();
-  } std::cout << "---" << std::endl;
+  }
+  if (method <= 1) std::cout << "---" << std::endl;
   return 0;
 }
