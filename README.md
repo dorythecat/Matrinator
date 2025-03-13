@@ -7,9 +7,10 @@ quite a fun project to pour some time onto. Hope you have fun with it!
 
 ## Usage
 The program takes various arguments. First comes the order of the matrix, then, the method used to solve the inverse
-(0 for Gauss, 1 for adjugate), and if more than those two paramenters are present, the program will ask the user
-for a matrix to input. Otherwise, an identity matrix will be used. The program will then return the matrix itself, the
-determinant, and the inverse of said matrix.
+(0 for Gauss, 1 for adjugate, 2 and 3 do the same but don't print the output), and if more than those two parameters
+are present, the program will ask the user for a matrix to input.
+
+Otherwise, an identity matrix will be used. The program will then return the matrix itself, the determinant, and the inverse of said matrix.
 
 ## Limitations
 I have only tested this program up to 50000x50000 matrices. From there onwards, there be dragons. It should be easy to
@@ -25,11 +26,11 @@ import subprocess
 
 import matplotlib.pyplot as plt
 
-r = range(<lowr bound>, <higher bound>, 1)
+r = range(<lower bound>, <higher bound>, 1)
 dt = []
 for i in r:
     start_time = time.time()
-    subprocess.run(['<Path to Matrinator.exe>', str(i), '<0|1>'])
+    subprocess.run(['<Path to Matrinator.exe>', str(i), '<0|1|2|3>'])
     end_time = time.time()
     result_time = end_time - start_time
     dt.append(result_time)
@@ -42,8 +43,8 @@ plt.ylabel("Compute time (s)")
 
 plt.show()
 ```
-The tests have been run on the "Release" build of the program, available to download from GitHub, and have been tested
-on a fairly common test rig, that should mimic an average computer/laptop setup. The graphs are at different scales
+The tests have been run on the "Release" build of the program, available to download from GitHub (NOT THE LATEST VERSION, CHECK BELOW FOR UPDATES SINCE),
+and have been tested on a fairly common test rig, that should mimic an average computer/laptop setup. The graphs are at different scales
 because I gave the program (mostly) the same runtime, except for the various Gauss' method graphs, where I was intrigued
 by the sudden change in growth that happens precisely at 512x512 matrices. If anyone finds why this happens, please let
 me know, and, kudos to you in advance.
@@ -61,3 +62,7 @@ The graphs are as follows:
 ![Adjugate (Recursive minor determinant) from 1 to 12.png](test%20results%2FAdjugate%20%28Adjugate%29%201-12.png)
 
 (This one was implemented separately, and we can't run much higher, since it is O(n!), and, if you know, you know)
+
+# UPDATES
+v1.0.1: Added 2 and 3 as options for the method, which don't print the output, and refactored all of the code
+v1.0.0: Initial release

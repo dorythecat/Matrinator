@@ -45,8 +45,14 @@ int main(int argc, char* argv[]) {
     case 1:
       a.inverse().print();
       break;
+    case 2:
+      a.gaussInverse();
+      break;
+    case 3:
+      a.inverse();
+      break;
     default:
       throw std::exception();
-    } std::cout << "---" << std::endl;
-    return 0;
+  } std::cout << "---" << std::endl;
+  return 0;
 }
