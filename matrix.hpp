@@ -12,16 +12,9 @@ public:
   mat_size_t size;
 
   explicit Matrix(mat_size_t size, bool zero = false) : size(size) {
-    m.reserve(size * size);
-    if (zero) {
-      std::fill(m.begin(), m.end(), 0);
-      return;
-    }
-    for (mat_size_t x = 0; x < size; x++) {
-      for (mat_size_t y = 0; y < size; y++) {
-        m.push_back(x == y ? 1 : 0);
-      }
-    }
+    m.resize(size * size, 0);
+    if (zero) return;
+    for (mat_size_t i = 0; i < size * size; i++) m[i + i * size] = 1;
   }
   ~Matrix() = default;
 
